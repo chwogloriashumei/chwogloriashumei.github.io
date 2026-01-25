@@ -1,43 +1,445 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="theme-color" content="#0b1220" />
+  <title>弘光科技大學 跨文化 × VR 英語展覽入口</title>
+  <meta name="description" content="弘光科技大學 校園展覽活動入口網站｜跨文化 × VR × 英語互動展覽" />
 
-<!DOCTYPE html>
-<html lang="zh-TW">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>弘光科技大學 | 跨文化 × VR 英語展覽</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Noto Sans TC', sans-serif;
-        scroll-behavior: smooth;
-      }
-      .font-serif {
-        font-family: 'Playfair Display', serif;
-      }
-      .mesh-bg {
-        background-color: #f8fafc;
-        background-image: 
-          radial-gradient(at 0% 0%, hsla(199,100%,93%,1) 0, transparent 50%), 
-          radial-gradient(at 50% 0%, hsla(27,100%,95%,1) 0, transparent 50%), 
-          radial-gradient(at 100% 0%, hsla(199,100%,93%,1) 0, transparent 50%);
-      }
-    </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react": "https://esm.sh/react@^19.2.3",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
-  }
-}
-</script>
-<link rel="stylesheet" href="/index.css">
+  <!-- Fonts (safe on GitHub Pages) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1:#0b1220;
+      --bg2:#111b33;
+      --card:#ffffff0f;
+      --card2:#ffffff14;
+      --border:#ffffff1a;
+      --text:#eaf0ff;
+      --muted:#b7c2e6;
+      --accent:#7dd3fc;
+      --accent2:#a78bfa;
+      --warm:#fbbf24;
+      --btn:#ffffff14;
+      --btnHover:#ffffff22;
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --shadow2: 0 18px 60px rgba(0,0,0,.25);
+      --radius: 18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Noto Sans TC", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "Microsoft JhengHei", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(1100px 800px at 15% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(900px 700px at 85% 20%, rgba(167,139,250,.16), transparent 55%),
+        radial-gradient(900px 700px at 60% 90%, rgba(251,191,36,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* soft noise overlay */
+    body:before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.15;
+    }
+
+    a{color:inherit}
+    .container{
+      width:min(1080px, 92vw);
+      margin:0 auto;
+      padding:36px 0 54px;
+    }
+
+    header{
+      position:relative;
+      padding:26px 18px 18px;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 14px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
+      border-radius:999px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      box-shadow: var(--shadow2);
+    }
+    .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--accent), rgba(125,211,252,.2));
+      box-shadow: 0 0 18px rgba(125,211,252,.35);
+    }
+    .badge span{
+      font-weight:600;
+      letter-spacing:.3px;
+      color:var(--muted);
+      font-size:14px;
+      white-space:nowrap;
+    }
+
+    h1{
+      margin:18px 0 10px;
+      font-size: clamp(26px, 3.1vw, 40px);
+      line-height:1.2;
+      letter-spacing:.4px;
+    }
+    .subtitle{
+      margin:0;
+      color:var(--muted);
+      font-size: clamp(14px, 1.35vw, 16px);
+      line-height:1.75;
+      max-width: 72ch;
+    }
+
+    .hero{
+      margin-top:18px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      border-radius: var(--radius);
+      padding:18px;
+      display:flex;
+      gap:14px;
+      align-items:flex-start;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .hero .icon{
+      flex:0 0 auto;
+      width:44px;height:44px;border-radius:14px;
+      border:1px solid var(--border);
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(125,211,252,.45), transparent 60%),
+        radial-gradient(18px 18px at 70% 70%, rgba(167,139,250,.35), transparent 60%),
+        rgba(255,255,255,.06);
+      display:grid;
+      place-items:center;
+    }
+    .hero .icon svg{opacity:.92}
+    .hero p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:14px;
+    }
+
+    main{
+      margin-top:26px;
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:18px;
+      padding: 0 18px;
+    }
+
+    .card{
+      grid-column: span 4;
+      position:relative;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, var(--card), rgba(255,255,255,.04));
+      border-radius: var(--radius);
+      padding:18px 18px 16px;
+      box-shadow: var(--shadow2);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transform: translateY(0);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+      overflow:hidden;
+      min-height: 240px;
+    }
+
+    .card:before{
+      content:"";
+      position:absolute;
+      inset:-2px;
+      background:
+        radial-gradient(420px 180px at 15% 10%, rgba(125,211,252,.18), transparent 60%),
+        radial-gradient(380px 160px at 85% 20%, rgba(167,139,250,.16), transparent 60%),
+        radial-gradient(380px 160px at 60% 90%, rgba(251,191,36,.10), transparent 60%);
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    .card:hover{
+      transform: translateY(-6px);
+      box-shadow: 0 22px 70px rgba(0,0,0,.45);
+      border-color: rgba(255,255,255,.26);
+      background:linear-gradient(180deg, var(--card2), rgba(255,255,255,.05));
+    }
+
+    .card .topline{
+      position:relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      font-size:12px;
+      color:rgba(234,240,255,.92);
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.06);
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .tag .mini{
+      width:8px;height:8px;border-radius:50%;
+      background: radial-gradient(circle at 30% 30%, var(--warm), rgba(251,191,36,.15));
+      box-shadow: 0 0 14px rgba(251,191,36,.22);
+    }
+
+    .card h2{
+      position:relative;
+      margin:6px 0 8px;
+      font-size:18px;
+      line-height:1.35;
+      letter-spacing:.2px;
+    }
+    .card .desc{
+      position:relative;
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.7;
+      font-size:14px;
+    }
+
+    .meta{
+      position:relative;
+      margin-top:auto;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+
+    .teacher{
+      font-size:12.5px;
+      color:rgba(234,240,255,.86);
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(255,255,255,.05);
+    }
+    .teacher svg{opacity:.9}
+
+    .btn{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:10px 14px;
+      border-radius: 12px;
+      border:1px solid var(--border);
+      background:linear-gradient(180deg, var(--btn), rgba(255,255,255,.06));
+      color:var(--text);
+      text-decoration:none;
+      font-weight:700;
+      letter-spacing:.2px;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+      user-select:none;
+    }
+    .btn:hover{
+      background:linear-gradient(180deg, var(--btnHover), rgba(255,255,255,.07));
+      border-color: rgba(255,255,255,.28);
+      transform: translateY(-2px);
+    }
+    .btn:active{transform: translateY(0)}
+    .btn svg{opacity:.9}
+
+    footer{
+      margin-top:34px;
+      padding: 0 18px;
+      color: rgba(183,194,230,.85);
+      font-size:12.5px;
+      line-height:1.7;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .sep{
+      opacity:.35;
+    }
+
+    /* RWD */
+    @media (max-width: 980px){
+      .card{grid-column: span 6;}
+    }
+    @media (max-width: 640px){
+      header{padding:22px 14px 14px;}
+      main{padding:0 14px;}
+      .hero{margin-left:14px;margin-right:14px;}
+      .card{grid-column: span 12; min-height: unset;}
+      footer{padding:0 14px;}
+    }
+
+    /* reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .card, .btn{transition:none}
+      .card:hover, .btn:hover{transform:none}
+    }
+  </style>
 </head>
-  <body class="mesh-bg text-slate-800 antialiased">
-    <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
+
+<body>
+  <div class="container">
+    <header>
+      <div class="badge" aria-label="活動資訊">
+        <span class="dot" aria-hidden="true"></span>
+        <span>科技 × 藝術 × 教育｜跨文化 × VR × 英語互動展</span>
+      </div>
+
+      <h1>弘光科技大學<br>跨文化 × VR 英語展覽入口</h1>
+      <p class="subtitle">
+        三個展覽入口都在這裡：點進去就能開始體驗 VR 與跨文化主題的英語互動內容。
+        （小提醒：建議使用 Chrome／Edge 以獲得最佳體驗）
+      </p>
+
+      <section class="hero" aria-label="簡介">
+        <div class="icon" aria-hidden="true">
+          <!-- spark icon -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2l1.4 5.2L18 9l-4.6 1.8L12 16l-1.4-5.2L6 9l4.6-1.8L12 2z" stroke="rgba(234,240,255,.95)" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M19 13l.9 3.1L23 17l-3.1.9L19 21l-.9-3.1L15 17l3.1-.9L19 13z" stroke="rgba(234,240,255,.75)" stroke-width="1.4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p>
+          歡迎來到校園展覽入口頁：以<strong>卡片式設計</strong>清楚分區、手機也好滑。
+          你只要挑一個展覽按下「前往展覽」，就像打開傳送門一樣（但比較不會被吸進去）。
+        </p>
+      </section>
+    </header>
+
+    <main>
+      <!-- Card 1 -->
+      <article class="card">
+        <div class="topline">
+          <div class="tag"><span class="mini"></span>【圖書館藝術廊道】</div>
+        </div>
+
+        <h2>Clothing for the Future</h2>
+        <p class="desc">
+          Exploring Sustainability, Cultural Awareness, and Body Sensitivity through Virtual Reality.
+        </p>
+
+        <div class="meta">
+          <div class="teacher" title="指導老師">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm7 10a7 7 0 0 0-14 0" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            卓淑美老師協同外師展覽
+          </div>
+
+          <a class="btn" href="https://chwogloriashumei.github.io/The_Cross_Culture_VR_love_of_Clothing_for_the_Future.html" target="_blank" rel="noopener">
+            前往展覽
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M10 7h7v7" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="card">
+        <div class="topline">
+          <div class="tag"><span class="mini"></span>跨文化展覽入口</div>
+        </div>
+
+        <h2>The Cross Culture Love of HungKuang University</h2>
+        <p class="desc">
+          Let us talk smart and play in English! 一起用英語聊得很順、玩得很嗨。
+        </p>
+
+        <div class="meta">
+          <div class="teacher" title="指導老師">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm7 10a7 7 0 0 0-14 0" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            卓淑美老師協同外師展覽
+          </div>
+
+          <a class="btn" href="https://chwogloriashumei.github.io/The_Cross_Culture_love.html" target="_blank" rel="noopener">
+            前往展覽
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M10 7h7v7" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card">
+        <div class="topline">
+          <div class="tag"><span class="mini"></span>VR 互動展覽入口</div>
+        </div>
+
+        <h2>The Cross Culture VR Love of HungKuang University</h2>
+        <p class="desc">
+          Let us talk smart and play in English! 用 VR 打開跨文化互動體驗，沉浸感拉滿。
+        </p>
+
+        <div class="meta">
+          <div class="teacher" title="指導老師">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M12 12a4 4 0 1 0-4-4 4 4 0 0 0 4 4zm7 10a7 7 0 0 0-14 0" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+            卓淑美老師協同外師展覽
+          </div>
+
+          <a class="btn" href="https://chwogloriashumei.github.io/The_Cross_Culture_VR_love_of_Cozy_Coner.html" target="_blank" rel="noopener">
+            前往展覽
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M7 17L17 7" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M10 7h7v7" stroke="rgba(234,240,255,.9)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+    </main>
+
+    <footer>
+      <div>
+        © <span id="y"></span> 弘光科技大學｜跨文化 × VR 英語展覽入口
+        <span class="sep">｜</span>
+        建議使用最新版本瀏覽器
+      </div>
+      <div>
+        若連結無法開啟，請確認網路或改用 Chrome／Edge 再試一次
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
